@@ -25,13 +25,40 @@
     dialog.modal[open]{opacity:1;pointer-events:auto}
 
     .modal-content{background:var(--card);width:100%;max-width:585px;border-radius:12px;padding:18px;color:#fff;box-shadow:0 12px 40px rgba(0,0,0,0.7)}
+
     .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
     .modal-img{width:100%;height:100%;max-height:360px;object-fit:cover;border-radius:8px}
     .modal-close{background:transparent;border:0;color:#fff;font-size:26px;cursor:pointer;float:right}
 
     @media(max-width:585px){.modal-grid{grid-template-columns:1fr}.modal-img{max-height:220px}.grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}}
     #leaders { display:flex; justify-content:center; flex-wrap:wrap; gap:20px; }
     #leaders .card { width:540px; }
+
+    /* ----------------------------- */
+    /*          FIX DEL MODAL        */
+    /* ----------------------------- */
+
+    .modal-content {
+      max-height: 90vh;          
+      overflow: hidden;          
+    }
+
+    .modal-grid {
+      max-height: 75vh;          
+    }
+
+    .modal-grid > div:last-child {
+      overflow-y: auto;          
+      padding-right: 6px;        
+      max-height: 75vh;          
+    }
+    .story-scroll {
+  max-height: 300px;
+  overflow-y: auto;
+  text-align: justify;
+  padding-right: 6px;
+}
   </style>
 </head>
 <body>
@@ -56,7 +83,11 @@
           <h2 id="modalName"></h2>
           <p><strong>Streamer:</strong> <span id="modalStreamer"></span></p>
           <p><strong>Ocupación:</strong> <span id="modalJob"></span></p>
-          <p><strong>Historia:</strong> <span id="modalStory"></span></p>
+          <p><strong>Historia:</strong></p>
+          
+<div class="story-scroll">
+  <span id="modalStory"></span>
+</div>
         </div>
       </div>
     </div>
@@ -88,14 +119,14 @@
       { 
         name: 'Alexander León',
         job: 'Guardia de Seguridad',
-        story: 'Tenía apenas 18 años cuando el brote lo arrancó de la vida que estaba por empezar. Mientras todos hablaban de universidades, carreras y futuros posibles, el mundo simplemente se derrumbó ante sus ojos. Nunca llegó a desarrollar una habilidad real; solo creció a la fuerza, sobreviviendo como pudo.Lo poco que sabe lo aprendió de manera casi accidental: horas viendo documentales de preppers que, sin imaginarlo, terminaron dándole las herramientas mínimas para no morir en los primeros años del colapso. Nada sofisticado, pero suficiente para mantenerse con vida. Antes de que todo se desmoronara, justo después de cumplir 18, trabajaba medio tiempo como guardia en un centro comercial. Un empleo simple, casi rutinario… pero que ahora se ha convertido en la única experiencia práctica que le quedó de aquel mundo que ya no existe.',
+        story: 'Tenía apenas 18 años cuando el brote lo arrancó de la vida...',
         streamer: 'MrGolden20',
         img: 'mrgolden.jpeg'
       },
       {
         name: 'Mason Walker',
         job: 'Leñador',
-        story: 'Busca venganze por el asesinato de su Esposa.',
+        story: 'Cuando la infección llegó a su ciudad, Mason no esperaba que su domingo en familia se convirtiera en una pesadilla. Su hija entró a la casa llorando, con un rasguño en la pierna. Sus padres no alcanzaron a reaccionar cuando, por la ventana de la cocina, un zombi agarró por la espalda a su esposa, Janet. Ella gritó mientras era jalada por el cadáver andante. Mason la liberó golpeando al zombi en la cabeza con una sartén. Después de esto, buscaron la forma de salir de la casa evitando el contacto con cualquier cadáver viviente. Pasaron horas de angustia mientras corrían hacia el refugio que habían anunciado unos militares que patrullaban la zona en un vehículo blindado, alertando y ayudando a posibles víctimas de los caminantes. Al llegar al refugio, uno de los guardias se alteró al ver la espalda de Janet: tenía una mordida recibida cuando fue jalada por el zombi en su casa. —¡Está infectada! —vociferó el guardia. A Mason no le dio tiempo de girar cuando escuchó el disparo. Solo vio una salpicadura de sangre salir de la cabeza de su esposa antes de que se desplomara en el suelo. Su hija rompió en llanto al ver la escena. Mason intentó levantar el cuerpo de Janet, arrodillado, pero la ira lo consumió y arremetió contra el guardia. Fue detenido por otros dos y solo alcanzó a ver el nombre en el pecho del soldado: GUESKER. Días después decidió abandonar las instalaciones con su hija. Había escuchado de otro refugio a las afueras de la ciudad, al otro lado del puente. Allí fueron recibidos con los brazos abiertos, pero pronto notaron que la salud de la niña se deterioraba poco a poco y nada parecía funcionar. Le dijeron que tenía síntomas de zombificación, y nadie quería tomar la vida de la niña, aunque fuera lo correcto para sacarla de su sufrimiento. Le dieron la opción de que fuera él mismo quien la matara, o dejarla por su cuenta en el bosque. Mason escogió acompañarla en sus últimos minutos como humana. En un cálido abrazo, lleno de lágrimas, le dijo: —Aquí estoy, hija… no te voy a dejar. Cuando finalmente se transformó, Mason solo la abrazó más fuerte hasta aplastarle el cuello. Gritos desgarradores se escucharon a lo lejos en el campamento. Mason regresó cargando el cuerpo sin vida de su hija. Nadie dijo nada. Se fue del campamento con ella en los brazos, caminó hasta su casa y la enterró debajo de un árbol, junto a la tumba de su madre. Juró volver cada mes… así como juró matar al desgraciado que le arrebató la vida a Janet.',
         streamer: 'Ernescero',
 	platform: 'twitch',
         img: 'Mason.png'
@@ -223,13 +254,41 @@
         img: 'sandiaenyoier.jpeg'
       },
       { 
+        name: 'Valentin Guzman',
+        job: 'MECANICO',
+        story: 'Era mecanico, le encantaba coger burras, besar a sus primas y recordar el campo en barinas, aprendio aleman por un viaje al extranjero.',
+        streamer: 'valdrocck',
+        img: 'valdrocck.jpeg'
+      },
+      { 
+        name: 'Estefani Tumbalarga',
+        job: 'Policia',
+        story: 'No tiene nada no entiende de nada vale verga en la vida , pero su habilidad de meter tiro la volvio policia pero se la pasa en las nubes pensando en tetas',
+        streamer: 'tifani10p',
+        img: 'tifany10p.jpeg'
+      },
+      { 
         name: '',
         job: '',
         story: '',
         streamer: '',
         img: ''
       },
-      
+      { 
+        name: '',
+        job: '',
+        story: '',
+        streamer: '',
+        img: ''
+      },
+
+      { 
+        name: 'Valentin Guzman',
+        job: 'MECANICO',
+        story: 'Era mecanico, le encantaba coger burras, besar a sus primas...',
+        streamer: 'valdrocck',
+        img: 'valdrocck.jpeg'
+      },
     ];
 
     const leadersContainer = document.getElementById('leaders');
@@ -244,11 +303,8 @@
 
     function ensureUrlForStreamer(streamer, platform){
       if(!streamer) return null;
-
-      try { new URL(streamer); return streamer; } catch(_){ }
-
+      try { new URL(streamer); return streamer; } catch(_){}
       if(platform === "kick") return "https://kick.com/" + encodeURIComponent(streamer);
-
       return "https://twitch.tv/" + encodeURIComponent(streamer);
     }
 
@@ -256,10 +312,10 @@
       const card = document.createElement('button');
       card.className = 'card';
       card.type = 'button';
-
       const imgSrc = char.img && char.img.trim() ? char.img : placeholder;
 
-      card.innerHTML = "<img src='" + imgSrc + "' alt='Imagen de " + escapeHtml(char.name) + "' />" +
+      card.innerHTML =
+        "<img src='" + imgSrc + "' alt='Imagen de " + escapeHtml(char.name) + "' />" +
         "<div class='name'>" + escapeHtml(char.name) + "</div>" +
         "<div class='small'>" + escapeHtml(char.job) + "</div>";
 
@@ -275,8 +331,10 @@
       const url = ensureUrlForStreamer(char.streamer, char.platform);
 
       if(url){
-        const text = char.streamer && char.streamer.trim() ? char.streamer : url;
-        modalStreamer.innerHTML = "<a href='" + url + "' target='_blank' rel='noopener noreferrer'>" + escapeHtml(text) + "</a>";
+        modalStreamer.innerHTML =
+          "<a href='" + url + "' target='_blank' rel='noopener noreferrer'>" +
+          escapeHtml(char.streamer || url) +
+          "</a>";
       } else {
         modalStreamer.textContent = '—';
       }
@@ -286,16 +344,25 @@
       closeBtn.focus();
     }
 
-    function closeModal(){ if(typeof modal.close === 'function') modal.close(); }
+    function closeModal(){ modal.close(); }
 
     closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
-    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+    modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+    window.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
 
-    function escapeHtml(str){ if(!str) return ''; return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+    function escapeHtml(str){
+      if(!str) return '';
+      return String(str)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#39;');
+    }
 
     leaders.forEach(c => leadersContainer.appendChild(createCard(c)));
     characters.forEach(c => survivorsContainer.appendChild(createCard(c)));
   </script>
 </body>
 </html>
+
