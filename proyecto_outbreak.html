@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proyecto: OUTBREAK - Presentación de Personajes</title>
+  <style>
+    :root{--bg:#0f0f0f;--card:#1a1a1a;--muted:rgba(255,255,255,0.8)}
+    html,body{height:100%}
+    body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:#fff;margin:0;padding:24px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    h1{text-align:center;margin:0 0 8px;font-size:1.6rem}
+    h2{text-align:center;margin:20px 0 12px;font-size:1.2rem}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;max-width:1100px;margin:0 auto}
+    .card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.6);cursor:pointer;transition:transform .18s ease,box-shadow .18s ease;border:1px solid rgba(255,255,255,0.03)}
+    .card:focus{outline:2px solid rgba(255,255,255,0.08);box-shadow:0 8px 22px rgba(0,0,0,0.7);transform:translateY(-4px)}
+    .card:hover{transform:translateY(-4px)}
+    .card img{width:100%;height:750px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block}
+    .name{font-size:1.1rem;font-weight:700;margin-bottom:6px}
+    .small{font-size:.9rem;color:var(--muted)}
+
+    .section-wrap{max-width:1200px;margin:0 auto;padding:0 12px}
+
+    dialog.modal{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;border:0;opacity:0;pointer-events:none;transition:opacity .2s ease;display:flex}
+    dialog.modal[open]{opacity:1;pointer-events:auto}
+
+    .modal-content{background:var(--card);width:100%;max-width:585px;border-radius:12px;padding:18px;color:#fff;box-shadow:0 12px 40px rgba(0,0,0,0.7)}
+    .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .modal-img{width:100%;height:100%;max-height:360px;object-fit:cover;border-radius:8px}
+    .modal-close{background:transparent;border:0;color:#fff;font-size:26px;cursor:pointer;float:right}
+
+    @media(max-width:585px){.modal-grid{grid-template-columns:1fr}.modal-img{max-height:220px}.grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}}
+    #leaders { display:flex; justify-content:center; flex-wrap:wrap; gap:20px; }
+    #leaders .card { width:540px; }
+  </style>
+</head>
+<body>
+  <h1>Proyecto: OUTBREAK</h1>
+
+  <div class="section-wrap">
+    <h2>Líderes de Facción</h2>
+    <div class="grid" id="leaders"></div>
+
+    <h2>Supervivientes</h2>
+    <div class="grid" id="survivors"></div>
+  </div>
+
+  <dialog id="modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeBtn">×</button>
+      <div class="modal-grid">
+        <div>
+           <img id="modalImg" class="modal-img" src="about:blank" alt="Imagen" />
+        </div>
+        <div>
+          <h2 id="modalName"></h2>
+          <p><strong>Streamer:</strong> <span id="modalStreamer"></span></p>
+          <p><strong>Ocupación:</strong> <span id="modalJob"></span></p>
+          <p><strong>Historia:</strong> <span id="modalStory"></span></p>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    const placeholder = "https://via.placeholder.com/600x400?text=Sin+Imagen";
+
+    const leaders = [
+      {
+        name: 'Alber Guesker', job: 'Líder de facción', story: 'Líder frío y calculador que controla la zona norte.', streamer: 'ElMisternixon', platform: 'twitch', img: 'alberguesker.png'
+      },
+      {
+        name: 'Tadeus Guesker', job: 'Líder de facción', story: 'Líder humanitario y comprensivo.', streamer: 'Josmq', platform: 'twitch', img: 'josmq.jpeg'
+      },
+    ];
+
+    const characters = [
+      { 
+        name: 'Alexander León',
+        job: 'Guardia de Seguridad',
+        story: 'Tenía apenas 18 años cuando el brote lo arrancó de la vida que estaba por empezar. Mientras todos hablaban de universidades, carreras y futuros posibles, el mundo simplemente se derrumbó ante sus ojos. Nunca llegó a desarrollar una habilidad real; solo creció a la fuerza, sobreviviendo como pudo.Lo poco que sabe lo aprendió de manera casi accidental: horas viendo documentales de preppers que, sin imaginarlo, terminaron dándole las herramientas mínimas para no morir en los primeros años del colapso. Nada sofisticado, pero suficiente para mantenerse con vida. Antes de que todo se desmoronara, justo después de cumplir 18, trabajaba medio tiempo como guardia en un centro comercial. Un empleo simple, casi rutinario… pero que ahora se ha convertido en la única experiencia práctica que le quedó de aquel mundo que ya no existe.',
+        streamer: 'MrGolden20',
+        img: 'mrgolden.jpeg'
+      },
+      {
+        name: 'Mason Walker',
+        job: 'Leñador',
+        story: 'Busca venganze por el asesinato de su Esposa.',
+        streamer: 'Ernescero',
+	platform: 'twitch',
+        img: 'Mason.png'
+      },
+      { 
+        name: 'Maximilio Stupino',
+        job: 'Veterano', 
+        story: 'era un ladron que se unio a las fuerzas armadas. Cuando regreso de Irak, se encontro a su mujer con su mejor amigo y procedio a matarlos en el acto, desde entonces vive oculto y desconfiando de todo el mundo',
+        streamer: 'waltvg',
+	platform: 'twitch',
+        img: 'waltvg.jpeg'
+      },
+      { 
+        name: 'Misshell Gomez',
+        job: 'Medico',
+        story: 'Era psicóloga antes del brote. Tenía un niño que me fue arrebatado, y el trauma de aquello hace que, cuando le tomo cariño a alguien, lo trate como si fuera un niño: lo cuido demasiado y, a veces, puedo llegar a ser insoportable… aunque de una manera chistosa.',
+        streamer: 'mishellgomez',
+	platform: 'twitch',
+        img: 'mishellgomez.jpeg'
+      },
+      { 
+        name: 'Nowil',
+        job: 'Mecanico',
+        story: 'El mecánico imparable, maestro del motor y salvador de cualquier chatarra… ¡el genio de la llave inglesa!',
+        streamer: 'SrEgg0',
+	platform: 'twitch',
+        img: 'sregg0.jpeg'
+      },
+      { 
+        name: 'Pipa Iguain',
+        job: 'Medico',
+        story: 'Esten atentos al Medico Cirrujano, que cura corazone con lonjas de Jamon.',
+        streamer: 'Prochutoo',
+	platform: 'twitch',
+        img: 'prochutoo.jpeg'
+      },
+      { 
+        name: 'Popopoti on the drums',
+        job: 'Ladron',
+        story: 'Un ex dj y productor musical de reggaeton, famoso por trabajar con grandes artistas del momento antes del brote zombie. Llevaba una vida de excesos, sin temor a la muerte y con una capacidad increíble para sobrevivir ',
+        streamer: 'Phootis',
+	platform: 'twitch',
+        img: 'phootis.jpeg'
+      },
+      { 
+        name: 'Rick Rivas',
+        job: 'Policia',
+        story: 'El sheriff del pueblo, ley viviente y guardián de su gente… ¡el orden con sombrero y estrella!',
+        streamer: 'gatronnn',
+	platform: 'twitch',
+        img: 'gatronn.jpeg'
+      },
+      { 
+        name: 'Sky dotte',
+        job: 'Policia',
+        story: 'Antes del brote zombi, trabajaba como técnica forense. Era meticulosa, precisa y rara vez cometía errores. Analizaba escenas, seguía pistas y entendía rápidamente qué había pasado. Pero diez años después del brote, nada de eso quedó intacto. El trauma, las pérdidas y el cansancio la volvieron inestable. A veces se bloquea, otras interpreta mal señales importantes, y sus conclusiones ya no siempre son confiables. Sigue intentando ayudar y usar lo que sabe, pero ya no es la persona segura y detallista que era. Hace lo posible… aunque a veces sus decisiones ponen a otros en riesgo sin querer. Vive cargando culpa, miedo y la sensación constante de que falló demasiado tarde.',
+        streamer: 'Veroskky',
+	platform: 'twitch',
+        img: 'veroskky.jpeg'
+      },
+      { 
+        name: 'Suko Higgins',
+        job: 'Bombero',
+        story: 'Era el hermano mayor de su familia, servía en la patrulla de bomberos del estado y mantenía el orden en su zona de patrullaje. Era muy querido por la comunidad: cariñoso, atento y siempre dispuesto a ayudar. Dedicó gran parte de su vida a trabajar como bombero. Perdió a su hermana menor y a su madre al comienzo del brote, quedando marcado por el trauma de no haber podido salvarlas. A veces sueña con sus rostros, no de forma nostálgica, sino trágica, como si él fuera el culpable de sus muertes.',
+        streamer: 'svkottoo',
+	platform: 'twitch',
+        img: 'svkotoo.jpeg'
+      },
+      { 
+        name: 'Tylor Manson',
+        job: 'Ladron',
+        story: 'Era estudiante de Psicologia del 7mo semestre, llevaba la vida sin preocupaciones pues sus padres le daban todo, se la pasaba drogándose de fiesta, excesos por lo que trae consigo una adicción fuerte a la nicotina como forma de contrarrestar la cadencia de otros fármacos. ',
+        streamer: 'yoshusempai',
+	platform: 'twitch',
+        img: ''
+      },
+      { 
+        name: 'Yusuf Hernao',
+        job: '',
+        story: 'Exprofesor de deporte, enérgico y motivador, acostumbrado a entrenar cuerpos y fortalecer voluntades. Diez años después del brote, sobrevive gracias a su disciplina y resistencia física. Aunque mantiene su carácter firme y optimista, la soledad y el desgaste del mundo caído lo han vuelto más reservado y desconfiado. Aun así, se aferra a la idea de que mantenerse en movimiento es la clave para seguir vivo.',
+        streamer: 'guitarristacrazy',
+	platform: 'kick',
+        img: 'guitarracrazy.jpeg'
+      },
+      { 
+        name: '',
+        job: '',
+        story: '',
+        streamer: '',
+        img: ''
+      },
+      { 
+        name: '',
+        job: '',
+        story: '',
+        streamer: '',
+        img: ''
+      },
+      { 
+        name: '',
+        job: '',
+        story: '',
+        streamer: '',
+        img: ''
+      },
+      { 
+        name: '',
+        job: '',
+        story: '',
+        streamer: '',
+        img: ''
+      },
+      { 
+        name: '',
+        job: '',
+        story: '',
+        streamer: '',
+        img: ''
+      },
+      { 
+        name: '',
+        job: '',
+        story: '',
+        streamer: '',
+        img: ''
+      },
+      { 
+        name: '',
+        job: '',
+        story: '',
+        streamer: '',
+        img: ''
+      },
+      
+    ];
+
+    const leadersContainer = document.getElementById('leaders');
+    const survivorsContainer = document.getElementById('survivors');
+    const modal = document.getElementById('modal');
+    const modalName = document.getElementById('modalName');
+    const modalJob = document.getElementById('modalJob');
+    const modalStory = document.getElementById('modalStory');
+    const modalStreamer = document.getElementById('modalStreamer');
+    const modalImg = document.getElementById('modalImg');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function ensureUrlForStreamer(streamer, platform){
+      if(!streamer) return null;
+
+      try { new URL(streamer); return streamer; } catch(_){ }
+
+      if(platform === "kick") return "https://kick.com/" + encodeURIComponent(streamer);
+
+      return "https://twitch.tv/" + encodeURIComponent(streamer);
+    }
+
+    function createCard(char){
+      const card = document.createElement('button');
+      card.className = 'card';
+      card.type = 'button';
+
+      const imgSrc = char.img && char.img.trim() ? char.img : placeholder;
+
+      card.innerHTML = "<img src='" + imgSrc + "' alt='Imagen de " + escapeHtml(char.name) + "' />" +
+        "<div class='name'>" + escapeHtml(char.name) + "</div>" +
+        "<div class='small'>" + escapeHtml(char.job) + "</div>";
+
+      card.addEventListener('click', ()=> openModal(char));
+      return card;
+    }
+
+    function openModal(char){
+      modalName.textContent = char.name;
+      modalJob.textContent = char.job;
+      modalStory.textContent = char.story;
+
+      const url = ensureUrlForStreamer(char.streamer, char.platform);
+
+      if(url){
+        const text = char.streamer && char.streamer.trim() ? char.streamer : url;
+        modalStreamer.innerHTML = "<a href='" + url + "' target='_blank' rel='noopener noreferrer'>" + escapeHtml(text) + "</a>";
+      } else {
+        modalStreamer.textContent = '—';
+      }
+
+      modalImg.src = char.img && char.img.trim() ? char.img : placeholder;
+      modal.showModal();
+      closeBtn.focus();
+    }
+
+    function closeModal(){ if(typeof modal.close === 'function') modal.close(); }
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+    function escapeHtml(str){ if(!str) return ''; return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+    leaders.forEach(c => leadersContainer.appendChild(createCard(c)));
+    characters.forEach(c => survivorsContainer.appendChild(createCard(c)));
+  </script>
+</body>
+</html>
