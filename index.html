@@ -7,31 +7,61 @@
   <style>
     :root{--bg:#0f0f0f;--card:#1a1a1a;--muted:rgba(255,255,255,0.8)}
     html,body{height:100%}
-    body{font-family: Inter, Arial, sans-serif;
-    /* BORRA la línea: background: var(--bg); */
+    body{
+      font-family: Inter, Arial, sans-serif;
+      
+      background-image: url('soledad.png'); 
+      background-size: cover;            
+      background-position: center;       
+      background-attachment: fixed;      
+      background-repeat: no-repeat;
+      
+      color: #fff;
+      margin: 0;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
     
-    /* AGREGA ESTAS LÍNEAS: */
-    background-image: url('soledad.png'); /* Pon aquí el nombre de tu archivo */
-    background-size: cover;            /* Hace que la imagen cubra toda la pantalla */
-    background-position: center;       /* Centra la imagen */
-    background-attachment: fixed;      /* La imagen se queda quieta cuando haces scroll */
-    background-repeat: no-repeat;
-    
-    color: #fff;
-    margin: 0;
-    padding: 24px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;}
     h1{text-align:center;margin:0 0 8px;font-size:1.6rem}
-    h2{text-align:center;margin:20px 0 12px;font-size:1.2rem}
-
+    h2{text-align:center;margin:30px 0 15px;font-size:1.4rem; text-transform: uppercase; letter-spacing: 1px;}
+    
+    /* CENTRADO DE LOGO Y TIMER */
     .logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 30px; /* Espacio debajo del logo */
-    margin-top: 10px;    /* Espacio arriba del logo */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center; 
+      width: 100%;
+      margin-bottom: 20px; 
+      margin-top: 10px;    
+    }
+    
+    .main-logo {
+      margin-bottom: 15px;
+      max-width: 100%; 
+      height: auto;
+    }
+
+    /* TIMER */
+    #cuenta-regresiva {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      
+      font-family: Inter, Arial, sans-serif; 
+      text-transform: uppercase; 
+      letter-spacing: 2px;       
+      
+      font-size: 1.3rem;
+      font-weight: 800; 
+      color: #ff4d4d;
+      text-shadow: 0 0 10px rgba(255, 77, 77, 0.6);
+      
+      text-align: center; 
+      margin: 0 auto; 
+      width: fit-content;
     }
 
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;max-width:1100px;margin:0 auto}
@@ -52,12 +82,12 @@
     .card:focus{outline:2px solid rgba(255,255,255,0.08);box-shadow:0 8px 22px rgba(0,0,0,0.7);transform:translateY(-4px)}
     .card:hover{transform:translateY(-4px)}
     
-    /* IMÁGENES ESTÁNDAR (Supervivientes) */
+    /* ESTILO GENERAL DE IMÁGENES (Supervivientes) */
     .card img{
       width:100%;
-      height:350px;       /* Altura fija para uniformidad en la grilla */
-      object-fit:cover;   /* Recorta para llenar sin deformar */
-      object-position: top; /* Enfoca la parte superior (cara) para que no se corte la cabeza */
+      height:350px;       /* Altura fija para uniformidad */
+      object-fit:cover;   /* Recorta si sobra imagen */
+      object-position: top; 
       border-radius:8px;
       margin-bottom:10px;
       display:block
@@ -68,18 +98,40 @@
 
     .section-wrap{max-width:1200px;margin:0 auto;padding:0 12px}
 
-    /* ESTILOS ESPECÍFICOS PARA LÍDERES */
+    /* --- LÍDERES --- */
     #leaders { display:flex; justify-content:center; flex-wrap:wrap; gap:20px; }
-    #leaders .card { width: 100%; max-width: 540px; } /* Tarjetas más anchas */
-    
-    /* Imágenes de líderes: Más altas y sin recorte agresivo */
+    #leaders .card { width: 100%; max-width: 540px; } 
     #leaders .card img { 
-      height: auto;         /* Permite que crezca según la imagen original */
-      max-height: 750px;    /* Límite máximo como en tu original */
-      aspect-ratio: 3/4;    /* Mantiene una buena proporción vertical */
+      height: auto;         
+      max-height: 750px;    
+      aspect-ratio: 3/4;    
       object-fit: cover;
       object-position: top center; 
     }
+
+    /* --- MANOS DERECHAS (CENTRADO Y SIN RECORTE) --- */
+    #rightHands { 
+      display: flex; 
+      justify-content: center; 
+      flex-wrap: wrap; 
+      gap: 20px; 
+      margin-bottom: 40px; 
+    }
+    
+    #rightHands .card {
+      width: 100%;
+      max-width: 400px; /* Ancho controlado */
+    }
+
+    /* AQUÍ ESTÁ EL CAMBIO PARA VER LA IMAGEN COMPLETA */
+   #rightHands .card img {
+  width: 100%;
+  height: 500px;        /* Altura fija para que todas midan lo mismo */
+  object-fit: cover;    /* Hace que la imagen llene el cuadro (recortando los bordes si sobra) */
+  object-position: top; /* Enfoca la parte superior (las caras) para que no se corten cabezas */
+  border-radius: 8px;
+  display: block;
+}
 
     /* MODAL */
     dialog.modal{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;border:0;opacity:0;pointer-events:none;transition:opacity .2s ease;display:flex}
@@ -88,7 +140,7 @@
     .modal-content {
       background: var(--card);
       width: 100%;
-      max-width: 750px; /* Más ancho para que quepa mejor el texto largo */
+      max-width: 750px; 
       border-radius: 12px;
       color: #fff;
       box-shadow: 0 12px 40px rgba(0,0,0,0.7);
@@ -96,13 +148,13 @@
       display: flex;
       flex-direction: column;
       overflow: hidden; 
-      padding: 0;     /* Sin padding para que la imagen toque el borde */
+      padding: 0;    
       position: relative;
     }
 
     .modal-grid {
       display: grid;
-      grid-template-columns: 300px 1fr; /* Columna imagen fija */
+      grid-template-columns: 300px 1fr; 
       height: 100%;
       overflow: hidden;
     }
@@ -111,7 +163,7 @@
       width: 100%;
       height: 100%;
       background: #000;
-      display: flex; /* Centrar imagen si es muy pequeña */
+      display: flex; 
       align-items: center;
     }
 
@@ -124,7 +176,7 @@
     }
 
     .modal-info {
-      padding: 24px 30px 24px 24px; /* Padding interno para el texto */
+      padding: 24px 30px 24px 24px; 
       overflow-y: auto;
       max-height: 85vh;
       position: relative;
@@ -151,11 +203,10 @@
     .modal-close:hover { background: rgba(255,255,255,0.2); }
 
     .grayscale { filter: grayscale(100%); }
-    .story-scroll { text-align: justify; white-space: pre-line; /* Respeta saltos de línea si los hay */ }
+    .story-scroll { text-align: justify; white-space: pre-line; }
     a { color: #4da3ff; text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* RESPONSIVE */
     @media(max-width:650px){
       .modal-grid { 
         grid-template-columns: 1fr; 
@@ -167,20 +218,29 @@
       
       .grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
       #leaders .card { width: 100%; }
-      #leaders .card img { max-height: 500px; } /* Ajuste para móvil */
+      #leaders .card img { max-height: 500px; } 
     }
 
   </style>
 </head>
 <body>
+  
   <div class="logo-container">
     <img src="logo2.png" alt="Logo Outbreak" class="main-logo" />
+    
+    <div id="cuenta-regresiva">
+       CARGANDO...
+    </div>
   </div>
+
   <h1>Proyecto: OUTBREAK</h1>
 
   <div class="section-wrap">
     <h2>Líderes de Facción</h2>
     <div class="grid" id="leaders"></div>
+
+    <h2>SubCapitanes</h2>
+    <div class="grid" id="rightHands"></div>
 
     <h2>Supervivientes</h2>
     <div class="grid" id="survivors"></div>
@@ -189,12 +249,9 @@
   <dialog id="modal" class="modal">
     <div class="modal-content">
       <div class="modal-grid">
-        <!-- Imagen Full Bleed -->
         <div class="modal-img-container">
            <img id="modalImg" class="modal-img" src="about:blank" alt="Imagen" />
         </div>
-
-        <!-- Texto con Padding -->
         <div class="modal-info">
           <button class="modal-close" id="closeBtn">×</button>
           
@@ -213,6 +270,28 @@
 
   <script>
     const placeholder = "https://via.placeholder.com/600x400?text=Sin+Imagen";
+
+    // --- TIMER ---
+    var fechaLimite = new Date("Dec 5, 2025 19:00:00").getTime();
+
+    var x = setInterval(function() {
+      var ahora = new Date().getTime();
+      var distancia = fechaLimite - ahora;
+
+      var dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+      var horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+      var segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+      document.getElementById("cuenta-regresiva").innerHTML = 
+        "FALTAN: " + dias + "D " + horas + "H " + minutos + "M " + segundos + "S ";
+
+      if (distancia < 0) {
+        clearInterval(x);
+        document.getElementById("cuenta-regresiva").innerHTML = "¡EL DÍA HA LLEGADO!";
+      }
+    }, 1000);
+    // --------------
 
     const leaders = [
       {
@@ -233,7 +312,15 @@
       },
     ];
 
-    const characters = [
+    const rightHands = [
+
+      { 
+        name: 'Klara Böhringer',
+        job: 'Electricista - Mano derecha de la Legion',
+        story: 'Ocupación Pre-Apocalipsis: Estudiante de Ingeniería de Automatización y Hacker de Sistemas. Luego del apocalipsis, procuro la supervivencia de cada persona que se encontraba en su camino, su misión es demostrar que la automatización y la ciencia pueden anteponerse sobre el caos, posee conocimientos médicos y atributos que le permiten crear artilugios para la supervivencia Es una persona bastante tranquila, le gusta la paz y ser justa, su ideal de liderazgo se basa en la justicia equilibrada, aunque cuando la provocan demasiado  una chispa de caes inunda su ser al punto de tomar medida drásticas y crueles de ser necesario',
+        streamer: 'soykj_',
+        img: 'imkiljoy.jpeg'
+      },
       {
         name: 'Mason Walker',
         job: 'Leñador - Mano derecha de La comuna',
@@ -241,13 +328,16 @@
         streamer: 'Ernescero',
         platform: 'twitch',
         img: 'Mason.png'
-      },
+      }
+    ];
+
+    const characters = [
       { 
-        name: 'Klara Böhringer',
-        job: 'Electricista - Mano derecha de la Legion',
-        story: 'Ocupación Pre-Apocalipsis: Estudiante de Ingeniería de Automatización y Hacker de Sistemas. Luego del apocalipsis, procuro la supervivencia de cada persona que se encontraba en su camino, su misión es demostrar que la automatización y la ciencia pueden anteponerse sobre el caos, posee conocimientos médicos y atributos que le permiten crear artilugios para la supervivencia Es una persona bastante tranquila, le gusta la paz y ser justa, su ideal de liderazgo se basa en la justicia equilibrada, aunque cuando la provocan demasiado  una chispa de caes inunda su ser al punto de tomar medida drásticas y crueles de ser necesario',
-        streamer: 'soykj_',
-        img: 'imkiljoy.jpeg'
+        name: 'Alexander León',
+        job: 'Guardia de Seguridad',
+        story: 'Tenía apenas 18 años cuando el brote lo arrancó de la vida...',
+        streamer: 'MrGolden20',
+        img: 'mrgolden.jpeg'
       },
       { 
         name: 'Maximilio Stupino',
@@ -329,13 +419,6 @@
         platform: 'kick',
         img: 'guitarracrazy.jpeg'
       },
-       { 
-        name: 'Alexander León',
-        job: 'Guardia de Seguridad',
-        story: 'Tenía apenas 18 años cuando el brote lo arrancó de la vida...',
-        streamer: 'MrGolden20',
-        img: 'mrgolden.jpeg'
-      },
       { 
         name: 'Billy "Coon" Kennedy',
         job: 'Bombero',
@@ -413,210 +496,37 @@
         streamer: 'evilpinku',
         img: 'evilpinku.jpeg'
       },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'dacciano.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'bambirini.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'bertilio.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'blackpixel.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'elizaky.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'chiguireocelet.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'dalyciosa.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'dayvori.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'doggykillah.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'gatronn.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'icross.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'imlevizz.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'itzmaik.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'javiamf.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'kanjean.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'karzon.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'keideota.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'litdeivi.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'maryroqui.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'mirandaw.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'nandatayo.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'patty.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'pechechex.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'simonardila.jpeg'
-      },
-      { 
-        name: 'Desconocido',
-        job: 'Desconocido',
-        story: 'Se le ha visto rondando afuera de un refugio',
-        streamer: 'Desconocido',
-        grayscale: true,
-        img: 'tnoise.jpeg'
-      },
+      // DESCONOCIDOS
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'dacciano.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'bambirini.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'bertilio.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'blackpixel.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'chiguireocelet.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'dalyciosa.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'dayvori.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'doggykillah.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'elizaky.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'gatronn.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'icross.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'imlevizz.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'itzmaik.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'javiamf.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'kanjean.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'karzon.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'keideota.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'litdeivi.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'maryroqui.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'mirandaw.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'nandatayo.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'patty.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'pechechex.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'simonardila.jpeg' },
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'tnoise.jpeg' },
       
     ];
 
     const leadersContainer = document.getElementById('leaders');
+    const rightHandsContainer = document.getElementById('rightHands'); 
     const survivorsContainer = document.getElementById('survivors');
     const modal = document.getElementById('modal');
     const modalName = document.getElementById('modalName');
@@ -681,6 +591,7 @@
     }
 
     leaders.forEach(c => { const card = createCard(c); if(card) leadersContainer.appendChild(card); });
+    rightHands.forEach(c => { const card = createCard(c); if(card) rightHandsContainer.appendChild(card); });
     characters.forEach(c => { const card = createCard(c); if(card) survivorsContainer.appendChild(card); });
   </script>
 </body>
