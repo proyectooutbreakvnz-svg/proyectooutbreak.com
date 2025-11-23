@@ -93,7 +93,13 @@
       display:block
     }
     
-    .name{font-size:1.1rem;font-weight:700;margin-bottom:6px}
+    .name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #ffffff !important; /* Forzar color blanco puro */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8); /* Opcional: Sombra negra para que se lea mejor */
+    }
     .small{font-size:.9rem;color:var(--muted)}
 
     .section-wrap{max-width:1200px;margin:0 auto;padding:0 12px}
@@ -218,7 +224,8 @@
       
       .grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
       #leaders .card { width: 100%; }
-      #leaders .card img { max-height: 500px; } 
+      #leaders .card img { max-height: 500px; }
+      
     }
 
   </style>
@@ -232,11 +239,16 @@
        CARGANDO...
     </div>
   </div>
-
-  <h1>Proyecto: OUTBREAK</h1>
+  
+<div style="text-align: center;">
+  <img src="Proyectooutbreaktexto.png" alt="proyectooutbreak">
+</div>
 
   <div class="section-wrap">
-    <h2>Líderes de Facción</h2>
+    <div style="text-align: center;">
+  <img src="lideresdefacciones.png" alt="subtitulo">
+</div>
+  
     <div class="grid" id="leaders"></div>
 
     <h2>SubCapitanes</h2>
@@ -496,6 +508,13 @@
         streamer: 'evilpinku',
         img: 'evilpinku.jpeg'
       },
+      { name: 'Alexandra Martínez ',
+       job: 'Enfermera',
+       story: 'Era calmada, eficiente y extremadamente observadora. Siempre parecía tener todo bajo control, y su capacidad para mantenerse serena frente a situaciones complicadas era admirable. Alexandra no buscaba atención, y prefería mantener sus asuntos privados bajo llave. Su rostro reflejaba una mezcla de dulzura y melancolía, dejando entrever que su pasado no era completamente transparente.',
+       streamer: 'mirandawv_',
+       grayscale: false,
+       img: 'mirandaw.jpeg'
+      },
       // DESCONOCIDOS
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'dacciano.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'bambirini.jpeg' },
@@ -506,7 +525,6 @@
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'dayvori.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'doggykillah.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'elizaky.jpeg' },
-      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'gatronn.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'icross.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'imlevizz.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'itzmaik.jpeg' },
