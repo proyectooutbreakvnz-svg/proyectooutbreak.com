@@ -7,61 +7,175 @@
   <style>
     :root{--bg:#0f0f0f;--card:#1a1a1a;--muted:rgba(255,255,255,0.8)}
     html,body{height:100%}
-    body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:#fff;margin:0;padding:24px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    body{font-family: Inter, Arial, sans-serif;
+    /* BORRA la línea: background: var(--bg); */
+    
+    /* AGREGA ESTAS LÍNEAS: */
+    background-image: url('soledad.png'); /* Pon aquí el nombre de tu archivo */
+    background-size: cover;            /* Hace que la imagen cubra toda la pantalla */
+    background-position: center;       /* Centra la imagen */
+    background-attachment: fixed;      /* La imagen se queda quieta cuando haces scroll */
+    background-repeat: no-repeat;
+    
+    color: #fff;
+    margin: 0;
+    padding: 24px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;}
     h1{text-align:center;margin:0 0 8px;font-size:1.6rem}
     h2{text-align:center;margin:20px 0 12px;font-size:1.2rem}
 
+    .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 30px; /* Espacio debajo del logo */
+    margin-top: 10px;    /* Espacio arriba del logo */
+    }
+
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;max-width:1100px;margin:0 auto}
-    .card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.6);cursor:pointer;transition:transform .18s ease,box-shadow .18s ease;border:1px solid rgba(255,255,255,0.03)}
+    
+    .card{
+      background:var(--card);
+      padding:14px;
+      border-radius:12px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.6);
+      cursor:pointer;
+      transition:transform .18s ease,box-shadow .18s ease;
+      border:1px solid rgba(255,255,255,0.03);
+      text-align: left;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
     .card:focus{outline:2px solid rgba(255,255,255,0.08);box-shadow:0 8px 22px rgba(0,0,0,0.7);transform:translateY(-4px)}
     .card:hover{transform:translateY(-4px)}
-    .card img{width:100%;height:750px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block}
+    
+    /* IMÁGENES ESTÁNDAR (Supervivientes) */
+    .card img{
+      width:100%;
+      height:350px;       /* Altura fija para uniformidad en la grilla */
+      object-fit:cover;   /* Recorta para llenar sin deformar */
+      object-position: top; /* Enfoca la parte superior (cara) para que no se corte la cabeza */
+      border-radius:8px;
+      margin-bottom:10px;
+      display:block
+    }
+    
     .name{font-size:1.1rem;font-weight:700;margin-bottom:6px}
     .small{font-size:.9rem;color:var(--muted)}
 
     .section-wrap{max-width:1200px;margin:0 auto;padding:0 12px}
 
+    /* ESTILOS ESPECÍFICOS PARA LÍDERES */
+    #leaders { display:flex; justify-content:center; flex-wrap:wrap; gap:20px; }
+    #leaders .card { width: 100%; max-width: 540px; } /* Tarjetas más anchas */
+    
+    /* Imágenes de líderes: Más altas y sin recorte agresivo */
+    #leaders .card img { 
+      height: auto;         /* Permite que crezca según la imagen original */
+      max-height: 750px;    /* Límite máximo como en tu original */
+      aspect-ratio: 3/4;    /* Mantiene una buena proporción vertical */
+      object-fit: cover;
+      object-position: top center; 
+    }
+
+    /* MODAL */
     dialog.modal{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;border:0;opacity:0;pointer-events:none;transition:opacity .2s ease;display:flex}
     dialog.modal[open]{opacity:1;pointer-events:auto}
 
-    .modal-content{background:var(--card);width:100%;max-width:585px;border-radius:12px;padding:18px;color:#fff;box-shadow:0 12px 40px rgba(0,0,0,0.7)}
-
-    .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-
-    .modal-img{width:100%;height:100%;max-height:360px;object-fit:cover;border-radius:8px}
-    .modal-close{background:transparent;border:0;color:#fff;font-size:26px;cursor:pointer;float:right}
-
-    @media(max-width:585px){.modal-grid{grid-template-columns:1fr}.modal-img{max-height:220px}.grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}}
-    #leaders { display:flex; justify-content:center; flex-wrap:wrap; gap:20px; }
-    #leaders .card { width:540px; }
-
-    /* ----------------------------- */
-    /*          FIX DEL MODAL        */
-    /* ----------------------------- */
-
     .modal-content {
-      max-height: 90vh;          
-      overflow: hidden;          
+      background: var(--card);
+      width: 100%;
+      max-width: 750px; /* Más ancho para que quepa mejor el texto largo */
+      border-radius: 12px;
+      color: #fff;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden; 
+      padding: 0;     /* Sin padding para que la imagen toque el borde */
+      position: relative;
     }
 
     .modal-grid {
-      max-height: 75vh;          
+      display: grid;
+      grid-template-columns: 300px 1fr; /* Columna imagen fija */
+      height: 100%;
+      overflow: hidden;
     }
 
-    .modal-grid > div:last-child {
-      overflow-y: auto;          
-      padding-right: 6px;        
-      max-height: 75vh;          
+    .modal-img-container {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex; /* Centrar imagen si es muy pequeña */
+      align-items: center;
     }
-    .story-scroll {
-  max-height: 300px;
-  overflow-y: auto;
-  text-align: justify;
-  padding-right: 6px;
-}
+
+    .modal-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 0;
+    }
+
+    .modal-info {
+      padding: 24px 30px 24px 24px; /* Padding interno para el texto */
+      overflow-y: auto;
+      max-height: 85vh;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0,0,0,0.5);
+      border: 0;
+      color: #fff;
+      font-size: 24px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background .2s;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.2); }
+
+    .grayscale { filter: grayscale(100%); }
+    .story-scroll { text-align: justify; white-space: pre-line; /* Respeta saltos de línea si los hay */ }
+    a { color: #4da3ff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* RESPONSIVE */
+    @media(max-width:650px){
+      .modal-grid { 
+        grid-template-columns: 1fr; 
+        grid-template-rows: 300px 1fr; 
+      }
+      .modal-img { height: 100%; object-position: top; }
+      .modal-info { max-height: none; overflow-y: visible; }
+      .modal-content { overflow-y: auto; display: block;}
+      
+      .grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+      #leaders .card { width: 100%; }
+      #leaders .card img { max-height: 500px; } /* Ajuste para móvil */
+    }
+
   </style>
 </head>
 <body>
+  <div class="logo-container">
+    <img src="logo2.png" alt="Logo Outbreak" class="main-logo" />
+  </div>
   <h1>Proyecto: OUTBREAK</h1>
 
   <div class="section-wrap">
@@ -74,20 +188,24 @@
 
   <dialog id="modal" class="modal">
     <div class="modal-content">
-      <button class="modal-close" id="closeBtn">×</button>
       <div class="modal-grid">
-        <div>
+        <!-- Imagen Full Bleed -->
+        <div class="modal-img-container">
            <img id="modalImg" class="modal-img" src="about:blank" alt="Imagen" />
         </div>
-        <div>
-          <h2 id="modalName"></h2>
+
+        <!-- Texto con Padding -->
+        <div class="modal-info">
+          <button class="modal-close" id="closeBtn">×</button>
+          
+          <h2 id="modalName" style="text-align:left; margin-top:0; margin-right: 30px;"></h2>
           <p><strong>Streamer:</strong> <span id="modalStreamer"></span></p>
           <p><strong>Ocupación:</strong> <span id="modalJob"></span></p>
+          <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin: 15px 0;">
           <p><strong>Historia:</strong></p>
-          
-<div class="story-scroll">
-  <span id="modalStory"></span>
-</div>
+          <div class="story-scroll">
+            <span id="modalStory"></span>
+          </div>
         </div>
       </div>
     </div>
@@ -125,10 +243,10 @@
       },
       {
         name: 'Mason Walker',
-        job: 'Leñador',
+        job: 'Leñador - Mano derecha de La comuna',
         story: 'Cuando la infección llegó a su ciudad, Mason no esperaba que su domingo en familia se convirtiera en una pesadilla. Su hija entró a la casa llorando, con un rasguño en la pierna. Sus padres no alcanzaron a reaccionar cuando, por la ventana de la cocina, un zombi agarró por la espalda a su esposa, Janet. Ella gritó mientras era jalada por el cadáver andante. Mason la liberó golpeando al zombi en la cabeza con una sartén. Después de esto, buscaron la forma de salir de la casa evitando el contacto con cualquier cadáver viviente. Pasaron horas de angustia mientras corrían hacia el refugio que habían anunciado unos militares que patrullaban la zona en un vehículo blindado, alertando y ayudando a posibles víctimas de los caminantes. Al llegar al refugio, uno de los guardias se alteró al ver la espalda de Janet: tenía una mordida recibida cuando fue jalada por el zombi en su casa. —¡Está infectada! —vociferó el guardia. A Mason no le dio tiempo de girar cuando escuchó el disparo. Solo vio una salpicadura de sangre salir de la cabeza de su esposa antes de que se desplomara en el suelo. Su hija rompió en llanto al ver la escena. Mason intentó levantar el cuerpo de Janet, arrodillado, pero la ira lo consumió y arremetió contra el guardia. Fue detenido por otros dos y solo alcanzó a ver el nombre en el pecho del soldado: GUESKER. Días después decidió abandonar las instalaciones con su hija. Había escuchado de otro refugio a las afueras de la ciudad, al otro lado del puente. Allí fueron recibidos con los brazos abiertos, pero pronto notaron que la salud de la niña se deterioraba poco a poco y nada parecía funcionar. Le dijeron que tenía síntomas de zombificación, y nadie quería tomar la vida de la niña, aunque fuera lo correcto para sacarla de su sufrimiento. Le dieron la opción de que fuera él mismo quien la matara, o dejarla por su cuenta en el bosque. Mason escogió acompañarla en sus últimos minutos como humana. En un cálido abrazo, lleno de lágrimas, le dijo: —Aquí estoy, hija… no te voy a dejar. Cuando finalmente se transformó, Mason solo la abrazó más fuerte hasta aplastarle el cuello. Gritos desgarradores se escucharon a lo lejos en el campamento. Mason regresó cargando el cuerpo sin vida de su hija. Nadie dijo nada. Se fue del campamento con ella en los brazos, caminó hasta su casa y la enterró debajo de un árbol, junto a la tumba de su madre. Juró volver cada mes… así como juró matar al desgraciado que le arrebató la vida a Janet.',
         streamer: 'Ernescero',
-	platform: 'twitch',
+        platform: 'twitch',
         img: 'Mason.png'
       },
       { 
@@ -136,55 +254,55 @@
         job: 'Veterano', 
         story: 'Era un ladron que se unio a las fuerzas armadas. Cuando regreso de Irak, se encontro a su mujer con su mejor amigo y procedio a matarlos en el acto, desde entonces vive oculto y desconfiando de todo el mundo',
         streamer: 'waltvg',
-	platform: 'twitch',
+        platform: 'twitch',
         img: 'waltvg.jpeg'
       },
       { 
         name: 'Misshell Gomez',
-        job: 'Medico',
+        job: 'Médico',
         story: 'Era psicóloga antes del brote. Tenía un niño que me fue arrebatado, y el trauma de aquello hace que, cuando le tomo cariño a alguien, lo trate como si fuera un niño: lo cuido demasiado y, a veces, puedo llegar a ser insoportable… aunque de una manera chistosa.',
         streamer: 'mishellgomez',
-	platform: 'twitch',
+        platform: 'twitch',
         img: 'mishellgomez.jpeg'
       },
       { 
         name: 'Nowil',
-        job: 'Mecanico',
+        job: 'Mecánico',
         story: 'El mecánico imparable, maestro del motor y salvador de cualquier chatarra… ¡el genio de la llave inglesa!',
         streamer: 'SrEgg0',
-	platform: 'twitch',
+        platform: 'twitch',
         img: 'sregg0.jpeg'
       },
       { 
         name: 'Pipa Iguain',
-        job: 'Medico',
+        job: 'Médico',
         story: 'Esten atentos al Medico Cirrujano, que cura corazone con lonjas de Jamon.',
         streamer: 'Prochutoo',
-	platform: 'twitch',
+        platform: 'twitch',
         img: 'prochutoo.jpeg'
       },
       { 
         name: 'Popopoti on the drums',
-        job: 'Ladron',
+        job: 'Ladrón',
         story: 'Un ex dj y productor musical de reggaeton, famoso por trabajar con grandes artistas del momento antes del brote zombie. Llevaba una vida de excesos, sin temor a la muerte y con una capacidad increíble para sobrevivir ',
         streamer: 'Phootis',
-	platform: 'twitch',
+        platform: 'twitch',
         img: 'phootis.jpeg'
       },
       { 
         name: 'Rick Rivas',
-        job: 'Policia',
+        job: 'Policía',
         story: 'El sheriff del pueblo, ley viviente y guardián de su gente… ¡el orden con sombrero y estrella!',
         streamer: 'gatronnn',
-	platform: 'twitch',
+        platform: 'twitch',
         img: 'gatronn.jpeg'
       },
       { 
         name: 'Sky dotte',
-        job: 'Policia',
+        job: 'Policía',
         story: 'Antes del brote zombi, trabajaba como técnica forense. Era meticulosa, precisa y rara vez cometía errores. Analizaba escenas, seguía pistas y entendía rápidamente qué había pasado. Pero diez años después del brote, nada de eso quedó intacto. El trauma, las pérdidas y el cansancio la volvieron inestable. A veces se bloquea, otras interpreta mal señales importantes, y sus conclusiones ya no siempre son confiables. Sigue intentando ayudar y usar lo que sabe, pero ya no es la persona segura y detallista que era. Hace lo posible… aunque a veces sus decisiones ponen a otros en riesgo sin querer. Vive cargando culpa, miedo y la sensación constante de que falló demasiado tarde.',
         streamer: 'Veroskky',
-	platform: 'twitch',
+        platform: 'twitch',
         img: 'veroskky.jpeg'
       },
       { 
@@ -192,62 +310,62 @@
         job: 'Bombero',
         story: 'Era el hermano mayor de su familia, servía en la patrulla de bomberos del estado y mantenía el orden en su zona de patrullaje. Era muy querido por la comunidad: cariñoso, atento y siempre dispuesto a ayudar. Dedicó gran parte de su vida a trabajar como bombero. Perdió a su hermana menor y a su madre al comienzo del brote, quedando marcado por el trauma de no haber podido salvarlas. A veces sueña con sus rostros, no de forma nostálgica, sino trágica, como si él fuera el culpable de sus muertes.',
         streamer: 'svkottoo',
-	platform: 'twitch',
+        platform: 'twitch',
         img: 'svkotoo.jpeg'
       },
       { 
         name: 'Tylor Manson',
-        job: 'Ladron',
+        job: 'Ladrón',
         story: 'Era estudiante de Psicologia del 7mo semestre, llevaba la vida sin preocupaciones pues sus padres le daban todo, se la pasaba drogándose de fiesta, excesos por lo que trae consigo una adicción fuerte a la nicotina como forma de contrarrestar la cadencia de otros fármacos. ',
         streamer: 'yoshusempai',
-	platform: 'twitch',
+        platform: 'twitch',
         img: 'yoshusempai.png'
       },
       { 
         name: 'Yusuf Hernao',
-        job: '',
+        job: 'Entrenador',
         story: 'Exprofesor de deporte, enérgico y motivador, acostumbrado a entrenar cuerpos y fortalecer voluntades. Diez años después del brote, sobrevive gracias a su disciplina y resistencia física. Aunque mantiene su carácter firme y optimista, la soledad y el desgaste del mundo caído lo han vuelto más reservado y desconfiado. Aun así, se aferra a la idea de que mantenerse en movimiento es la clave para seguir vivo.',
         streamer: 'guitarristacrazy',
-	platform: 'kick',
+        platform: 'kick',
         img: 'guitarracrazy.jpeg'
       },
       { 
         name: 'Klara Böhringer',
-        job: 'Electrisista',
+        job: 'Electricista - Mano derecha de la Legion',
         story: 'Ocupación Pre-Apocalipsis: Estudiante de Ingeniería de Automatización y Hacker de Sistemas. Luego del apocalipsis, procuro la supervivencia de cada persona que se encontraba en su camino, su misión es demostrar que la automatización y la ciencia pueden anteponerse sobre el caos, posee conocimientos médicos y atributos que le permiten crear artilugios para la supervivencia Es una persona bastante tranquila, le gusta la paz y ser justa, su ideal de liderazgo se basa en la justicia equilibrada, aunque cuando la provocan demasiado  una chispa de caes inunda su ser al punto de tomar medida drásticas y crueles de ser necesario',
         streamer: 'soykj_',
         img: 'imkiljoy.jpeg'
       },
       { 
         name: 'Billy "Coon" Kennedy',
-        job: 'BOMBERO',
+        job: 'Bombero',
         story: 'Era bombero antes del apocalipsis, una profesión que no solo lo formó físicamente, sino que también lo dotó de una increíble capacidad de adaptación. Por esa habilidad innata para ajustarse a cualquier situación, sus compañeros lo apodaron “Mapache”: ingenioso, resistente y siempre encontrando la manera de sobrevivir entre los escombros. Cuando el brote comenzó, su prioridad absoluta fue su familia. Durante los primeros años se dedicó por completo a protegerlos, usando cada conocimiento aprendido en su vida como bombero para mantenerlos con vida. Pero con el paso del tiempo, el verdadero enemigo no fueron los infectados, sino el miedo humano. Su esposa, consumida por el pánico y la desesperación, tomó decisiones atroces. En los últimos dos años, traicionó y sacrificó a sus dos hijos, no de una sola vez, sino de forma escalonada, ocultándole la verdad y manipulando cada evento para garantizar únicamente su propia supervivencia. Años después, incapaz de cargar más con el peso de sus propios actos, le confesó todo. Aquello destruyó por completo su fe en las personas. Tras abandonarla, su espíritu quedó marcado por la desconfianza absoluta hacia los demás. Dejó atrás cualquier idea de hogar o refugio permanente y adoptó una vida nómada, guiado únicamente por el instinto de supervivencia y la certeza de que la humanidad puede ser más peligrosa que los muertos. Esa vida errante, movida por la necesidad de mantenerse siempre un paso adelante, es la que finalmente lo llevó a Louisville.',
         streamer: 'billybillete',
         img: 'billybillete.jpeg'
       },
       { 
-        name: 'Juan Guitierrez',
-        job: 'Mecanico',
+        name: 'Juan Gutierrez',
+        job: 'Mecánico',
         story: 'Cuando todo empezó apenas tenia 25 años, vivía una vida tranquila trabajando en un taller y arreglando los carros de los vecinos o lo que necesitaran ya que vivía en un vecindario donde la mayoría de los habitantes eran personas de 3era edad. Sin embargo estos ancianitos cambiaron de un día a otro... Cuando llegó la infección ya no habían mas dias tranquilos y todos los vecinos que alguna vez conoció ya no eran ellos, asi que tuvo que encargarse. Eran ellos o él.',
         streamer: 'juantaich0',
         img: 'juantaicho.jpeg'
       },
       { 
         name: 'Clover Grimes',
-        job: 'Medico',
+        job: 'Médico',
         story: 'Cuando todo comenzó, yo tenía apenas 22 años. Acababa de terminar la carrera de mis sueños: Medicina. Vivía en una vecindad tranquila, de esas donde todos se conocen por nombre, donde los niños jugaban en los pasillos y siempre había alguien dispuesto a ayudarte con una bolsa de mercado o una taza de azúcar. Era un lugar humilde, pero lleno de vida. Y yo, ilusionada, esperaba mi ceremonia de graduación para comenzar mi residencia en el hospital local, pero ese día nunca llegó. La madrugada de mi graduación, algo me despertó. Primero fueron gritos lejanos, después sirenas… y luego un silencio extraño, tenso, antinatural. Cuando abrí la puerta y miré hacia afuera, todo había cambiado. Los pasillos de la vecindad estaban vacíos, las puertas entreabiertas, y en el aire se sentía un olor metálico y espeso que no supe reconocer en ese momento… pero ahora sé que era sangre. Afuera, la ciudad estaba en caos, lo que al principio parecían disturbios pronto se transformó en un infierno real: personas corriendo, otras que ya no parecían personas, atacando a cualquiera que se moviera. No hubo mensajes oficiales, no hubo advertencias. Solo confusión, muerte y un miedo que se quedaba clavado en la garganta. Ese primer día marcó mi vida y en los años siguientes, mi profesión dejó de ser un título y se convirtió en mi herramienta de supervivencia. Me dediqué a sanar como podía, a improvisar quirófanos en bodegas, a remendar heridas con lo que hubiera, a salvar vidas que se empeñaban en perderse. A veces lo logré… otras no. Diez años después, ya no soy la joven recién graduada de bata blanca. Soy algo distinto: médica, sobreviviente y cuando toca guerrera. Pero todavía recuerdo esa vecindad tranquila. Todavía recuerdo quién era antes de que todo explotara. Y a veces me pregunto si queda algo de ella en mí.',
         streamer: 'catapocalipsis',
         img: 'catarsis.jpeg'
       },
       { 
-        name: 'Sibilino asunción Pérez Urrutia ',
-        job: 'Guardia de seguridad',
+        name: 'Sibilino Pérez Urrutia',
+        job: 'Guardia de Seguridad',
         story: 'Antes del apocalipsis era guardia de seguridad en el Sambil, acostumbrado a resolver problemas menores y mantener el orden. Todo cambió el día en que vio, desde los monitores, a los clientes convertirse en algo violento e irreconocible. Esa noche improvisó barricadas, bloqueó entradas y sobrevivió como pudo. Con el tiempo, el Sambil dejó de ser refugio y se convirtió en una trampa, así que decidió abandonarlo. Diez años después, ya no es solo un guardia: es un sobreviviente disciplinado, siempre alerta y desconfiado, recorriendo el mundo como si aún estuviera en un turno que nunca terminó.',
         streamer: 'yohisneb',
         img: 'yohisneb.jpeg'
       },
       { 
-        name: 'Jessica Páez ',
+        name: 'Jessica Páez',
         job: 'Enfermera',
         story: 'Llevaba una vida tranquila como enfermera, acostumbrada a cuidar, escuchar y calmar el dolor ajeno. Pero cuando llegó el brote, todo lo que conocía se desplomó en cuestión de horas. Pasó de repartir alivio a enfrentar heridas imposibles, a correr, esconderse y sobrevivir. Diez años después, su vocación sigue viva, pero endurecida: ya no solo sana, también lucha… porque en este mundo, salvar una vida empieza por proteger la propia.',
         streamer: 'sandia_enjoyer',
@@ -255,15 +373,15 @@
       },
       { 
         name: 'Valentin Guzman',
-        job: 'MECANICO',
+        job: 'Mecánico',
         story: 'Era mecanico, le encantaba coger burras, besar a sus primas y recordar el campo en barinas, aprendio aleman por un viaje al extranjero.',
         streamer: 'valdrocck',
         img: 'valdrocck.jpeg'
       },
       { 
         name: 'Estefani Tumbalarga',
-        job: 'Policia',
-        story: 'No tiene nada no entiende de nada vale verga en la vida , pero su habilidad de meter tiro la volvio policia pero se la pasa en las nubes pensando en tetas',
+        job: 'Policía',
+        story: 'No tiene nada no entiende de nada vale verga en la vida , pero su habilidad de meter tiro la volvio policia pero se la pasa en las nubes pensando en tetas.',
         streamer: 'tifani10p',
         img: 'tifany10p.jpeg'
       },
@@ -272,7 +390,7 @@
         job: 'Doctor',
         story: 'Yonkleivert Diaz era médico de urgencias cuando el brote estalló. Sobrevivió refugiándose en el sótano del hospital donde trabajaba, rodeado de cadáveres que alguna vez fueron colegas y pacientes. Al principio intentó ayudar a los pocos sobrevivientes que llegaban heridos… pero con el tiempo empezó a registrar síntomas, tomar muestras y observar el proceso de infección. Él lo llamaba “investigación”. Otros lo llamaban “desapariciones”. Diez años después, Yonkleivert vaga con una bata rota y una mochila llena de cuadernos clínicos y frascos etiquetados. Cura a quien puede, pero siempre con una calma inquietante, examinando a cada persona como si fuera un caso interesante más que un ser humano. Para algunos es un doctor indispensable. Para otros, un rumor peligroso. Y él mismo ya no está seguro de en qué punto dejó de ser médico… y se convirtió en algo más oscuro.',
         streamer: 'larrymd23',
-        img: ''
+        img: 'larry.png'
       },
       { 
         name: 'Jhovierinho Sexy Junior Putosky',
@@ -283,18 +401,219 @@
       },
       { 
         name: 'Mary Cromwell',
-        job: 'Guardia de seguridad',
+        job: 'Guardia de Seguridad',
         story: 'Mary Cromwell nació y se crió en New York, tiempo después se casó y estudió para ser guardia de seguridad, terminó teniendo dos hijas gemelas y un esposo encantador, un día venía saliendo de  donde trabajaba y empezó a ver como la ciudad estaba en caos, desesperada entró en pánico y empezó a llamar a sus hijas las cuales ya tenían 12 años, y ninguna le contestaba, ni ellas, ni su esposo, siendo en la mañana la última vez que los vería… Pasaron 10 años desde ese momento, y ahora Mary se convirtió en una ladrona, haciendo todo por sobrevivir, con la esperanza de encontrar a su familia en algún momento, se volvió adicta al cigarro y tuvo que hacer de todo un poco para poder estar con vida aún, tiene un bate como mejor amigo. ',
         streamer: 'Melayrah',
         img: 'melyrah.jpeg'
       },
       { 
         name: 'Pingocha',
-        job: 'Desempleada ',
+        job: 'Desempleada',
         story: 'Antes del apocalipsis zombie Pingocha era hija de padres ricos y poderosos, por lo que era una desempleada inservible que dependia de sus padres y no sabia hacer nada por si sola. El dia del apocalipsis, sus padres por influencia, fueron de los primeros en enterarse he hicieron todo lo posible para sobrevivir. Corrieron hacia su bunker privado, pero solo Pingocha alcanzo a entrar y  mientras la puerta del bunker se cerraba solo veia como sus padres eran masacrados por una ola gigante de zombies. Pingocha permanecio 10 años encerrada en el bunker, sola y ahora con traumas y problemas mentales debido a la soledad en la que estuvo encerrada. Pingocha no sabe hacer nada, no a salido a la sociedad en demasiado tiempo, no sabe nada del exterior, y no tiene idea de como sobrevivir, pero tiene que salir, por que ya no le queda comida ni nada por que vivir.',
         streamer: 'evilpinku',
         img: 'evilpinku.jpeg'
       },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'dacciano.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'bambirini.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'bertilio.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'blackpixel.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'chiguireocelet.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'dalyciosa.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'dayvori.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'doggykillah.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'Elizaky.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'gatronn.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'icross.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'imlevizz.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'itzmaik.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'javiamf.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'kanjean.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'karzon.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'keideota.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'litdeivi.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'maryroqui.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'mirandaw.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'nandatayo.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'patty.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'pechechex.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'simonardila.jpeg'
+      },
+      { 
+        name: 'Desconocido',
+        job: 'Desconocido',
+        story: 'Se le ha visto rondando afuera de un refugio',
+        streamer: 'Desconocido',
+        grayscale: true,
+        img: 'tnoise.jpeg'
+      },
+      
     ];
 
     const leadersContainer = document.getElementById('leaders');
@@ -308,22 +627,24 @@
     const closeBtn = document.getElementById('closeBtn');
 
     function ensureUrlForStreamer(streamer, platform){
-      if(!streamer) return null;
+      if(!streamer || streamer === 'Desconocido') return null;
       try { new URL(streamer); return streamer; } catch(_){}
       if(platform === "kick") return "https://kick.com/" + encodeURIComponent(streamer);
       return "https://twitch.tv/" + encodeURIComponent(streamer);
     }
 
     function createCard(char){
+      if(!char.name) return null;
       const card = document.createElement('button');
       card.className = 'card';
       card.type = 'button';
       const imgSrc = char.img && char.img.trim() ? char.img : placeholder;
+      const grayscaleClass = char.grayscale ? "grayscale" : "";
 
       card.innerHTML =
-        "<img src='" + imgSrc + "' alt='Imagen de " + escapeHtml(char.name) + "' />" +
-        "<div class='name'>" + escapeHtml(char.name) + "</div>" +
-        "<div class='small'>" + escapeHtml(char.job) + "</div>";
+        `<img src="${imgSrc}" class="${grayscaleClass}" alt="Imagen de ${escapeHtml(char.name)}" />` +
+        `<div class="name">${escapeHtml(char.name)}</div>` +
+        `<div class="small">${escapeHtml(char.job)}</div>`;
 
       card.addEventListener('click', ()=> openModal(char));
       return card;
@@ -335,19 +656,17 @@
       modalStory.textContent = char.story;
 
       const url = ensureUrlForStreamer(char.streamer, char.platform);
-
       if(url){
-        modalStreamer.innerHTML =
-          "<a href='" + url + "' target='_blank' rel='noopener noreferrer'>" +
-          escapeHtml(char.streamer || url) +
-          "</a>";
+        modalStreamer.innerHTML = `<a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(char.streamer || url)}</a>`;
       } else {
-        modalStreamer.textContent = '—';
+        modalStreamer.textContent = char.streamer || '—';
       }
 
       modalImg.src = char.img && char.img.trim() ? char.img : placeholder;
+      modalImg.classList.toggle("grayscale", !!char.grayscale);
+
       modal.showModal();
-      closeBtn.focus();
+      closeBtn.blur();
     }
 
     function closeModal(){ modal.close(); }
@@ -358,17 +677,11 @@
 
     function escapeHtml(str){
       if(!str) return '';
-      return String(str)
-        .replace(/&/g,'&amp;')
-        .replace(/</g,'&lt;')
-        .replace(/>/g,'&gt;')
-        .replace(/"/g,'&quot;')
-        .replace(/'/g,'&#39;');
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
     }
 
-    leaders.forEach(c => leadersContainer.appendChild(createCard(c)));
-    characters.forEach(c => survivorsContainer.appendChild(createCard(c)));
+    leaders.forEach(c => { const card = createCard(c); if(card) leadersContainer.appendChild(card); });
+    characters.forEach(c => { const card = createCard(c); if(card) survivorsContainer.appendChild(card); });
   </script>
 </body>
 </html>
-
