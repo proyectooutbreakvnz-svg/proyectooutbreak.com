@@ -214,11 +214,19 @@
     a:hover { text-decoration: underline; }
 
     @media(max-width:650px){
-      .modal-grid { 
+    .modal-grid { 
         grid-template-columns: 1fr; 
-        grid-template-rows: 300px 1fr; 
+        /* CAMBIA 300px POR 50vh (significa 50% de la altura de la pantalla) */
+        grid-template-rows: 50vh 1fr; 
       }
-      .modal-img { height: 100%; object-position: top; }
+      
+      .modal-img { 
+        height: 100%; 
+        object-fit: cover;
+        /* ESTA LÍNEA ES LA CLAVE: Obliga a mostrar la parte de arriba (cabeza) */
+        object-position: top center !important; 
+      }
+      
       .modal-info { max-height: none; overflow-y: visible; }
       .modal-content { overflow-y: auto; display: block;}
       
@@ -515,21 +523,40 @@
        grayscale: false,
        img: 'mirandaw.jpeg'
       },
+      { name: 'Arianna Valverde',
+       job: 'Electricista',
+       story: 'Arianna Valverde, de 28 años, trabajaba como técnica de mantenimiento industrial, especializada en sistemas eléctricos y reparación de maquinaria. Para completar ingresos, también hacía turnos como asistente de laboratorio en una planta química local, donde aprendió procedimientos básicos de análisis, esterilización y manejo de sustancias. Siempre fue una mujer reservada, observadora y extremadamente lógica, de las que hablan poco pero ven todo. Antes del brote empezó a notar comportamientos extraños entre trabajadores de la planta: fiebre, confusión, heridas que no cicatrizaban. Por curiosidad —y un poco de paranoia— comenzó a tomar notas y registrar síntomas. Cuando la infección se desató, Ari quedó atrapada dentro del laboratorio por casi un día entero. Allí presenció reacciones y comportamientos que aún no logra explicar. Logró escapar sola, cargando solo sus herramientas y una libreta donde escribe todo lo que observa sobre la infección. Ahora viaja de refugio en refugio, ofreciendo reparaciones eléctricas o mecánicas a cambio de recursos. Callada, inteligente y difícil de leer, Ari parece enfocada únicamente en sobrevivir, pero en realidad está obsesionada con entender el avance del virus. Evalúa cada grupo, cada herida, cada síntoma, como si buscara un patrón que aún no logra descifrar. No es la más fuerte ni la más sociable, pero si alguien necesita reparar algo, improvisar herramientas o entender qué demonios está pasando ahí fuera, Ari es la persona indicada, si es que logran ganarse su confianza.',
+       streamer: 'Elizakyy',
+       grayscale: false,
+       img: 'elizaky.jpeg'
+      },
+      { name: 'RickJean Grames',
+       job: 'Policía',
+       story: 'Era un policia que se dedicaba a extorsionar, sabotear y ser un corrupto, no tenia esposa, ni hijos, todo esto debido a su gran ambicion y egoismo que lo caracteriza. Es capaz de abandonar a cualquiera de sus conocidos para salvarse el, la gente sigue indagando si aun hay un poco de humanidad en su corazon, pero deben descubrirlo por sus cuentas...',
+       streamer: 'kanjean',
+       grayscale: false,
+       img: 'kanjean.jpeg'
+      },
+      { 
+       name: 'Alex Cross',
+       job: 'Desconocido',
+       story: 'Era un inmigrante veneco que encontró trabajo de mecánico en un concesionario de Wisconsin donde también aprendió el arte de las ventas y esperaba un aumento de cargo cuando la sociedad se desplomó.',
+       streamer: 'iCrossF22',
+       grayscale: false,
+       img: 'icross.jpeg'
+      },      
       // DESCONOCIDOS
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'dacciano.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'bambirini.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'bertilio.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'blackpixel.jpeg' },
-      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'chiguireocelet.jpeg' },
+      { name: 'ChigüireFeo', job: 'Indigente', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'chiguireocelet.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'dalyciosa.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'dayvori.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'doggykillah.jpeg' },
-      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'elizaky.jpeg' },
-      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'icross.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'imlevizz.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'itzmaik.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'javiamf.jpeg' },
-      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'kanjean.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'karzon.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'keideota.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'litdeivi.jpeg' },
@@ -540,7 +567,7 @@
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'pechechex.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'simonardila.jpeg' },
       { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'tnoise.jpeg' },
-      
+      { name: 'Desconocido', job: 'Desconocido', story: 'Se le ha visto rondando afuera de un refugio', streamer: 'Desconocido', grayscale: true, img: 'puckry.jpg' },
     ];
 
     const leadersContainer = document.getElementById('leaders');
